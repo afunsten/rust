@@ -1,7 +1,7 @@
 use std::fs;
 use std::process;
 
-// This function borrows a slice
+// This function borrows a slice of the args vector
 pub fn analyze_args(args: &[String]) {
     let mut filename = "./config.json";
     let args_length = args.len();
@@ -25,6 +25,7 @@ pub fn analyze_args(args: &[String]) {
     read_file(filename);
 }
 
+// read file
 fn read_file(filename: &str){
     println!("Read file: {}", &filename);
     let contents = fs::read_to_string(&filename)
