@@ -1,9 +1,11 @@
 use std::fs;
 use std::process;
+use std::collections::HashMap;
 
 // This function borrows a slice of the args vector
-pub fn analyze_args(args: &[String]) {
+pub fn analyze_args(args: &[String])-> HashMap<&str, &str> {
     let mut filename = "./config.json";
+
     let args_length = args.len();
     let mut i = 0;
     for argument in args {
@@ -22,14 +24,16 @@ pub fn analyze_args(args: &[String]) {
         }
         i += 1
     }
-    read_file(filename);
+    let config = HashMap::from([
+        ("filename", filename),
+    ]);
+    return config
 }
 
-// read file
-fn read_file(filename: &str){
+// read file; display and return contents
+pub fn read_file(filename: &str) -> String {
     println!("Read file: {}", &filename);
     let contents = fs::read_to_string(&filename)
         .expect("\u{1b}[31m\"Could not read file\u{1b}[39m");
-
-    println!("{} file content...\n{}", &filename, contents);
+    return contents;
 }
